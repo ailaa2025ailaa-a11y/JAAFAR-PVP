@@ -41,6 +41,22 @@ jobs:
           echo "Updated Gradle settings:"
           cat project/settings.gradle 2>/dev/null || cat project/settings.gradle.kts
 
+      - name: Remove obsolete mappings declaration for unobfuscated Minecraft
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -q 'officialMojangMappings' project/build.gradle; then
+            sed -i '/officialMojangMappings/d' project/build.gradle
+            echo "Removed Mojang mappings declaration; this Minecraft version uses unobfuscated names."
+          else
+            echo "Expected Mojang mappings declaration was not found."
+            echo "Build configuration:"
+            nl -ba project/build.gradle | head -40
+            exit 1
+          fi
+          echo "Updated build.gradle:"
+          nl -ba project/build.gradle | head -40
+
       - name: Set up Java 21
         uses: actions/setup-java@v4
         with:
