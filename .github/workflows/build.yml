@@ -24,16 +24,16 @@ jobs:
           echo "Project files:"
           find project -maxdepth 6 -type f | sort | head -250
 
-      - name: Set up Java 25
+      - name: Set up Java 21
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '25'
+          java-version: '21'
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '9.1.0'
+          gradle-version: '9.2.0'
 
       - name: Build project
         shell: bash
