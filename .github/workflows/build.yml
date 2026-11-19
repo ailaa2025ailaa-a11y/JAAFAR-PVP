@@ -68,6 +68,14 @@ jobs:
         with:
           gradle-version: '9.2.0'
 
+      - name: Inspect Gradle configuration
+        shell: bash
+        run: |
+          echo "===== build.gradle ====="
+          nl -ba project/build.gradle | head -100
+          echo "===== settings.gradle ====="
+          cat project/settings.gradle
+
       - name: Build project
         shell: bash
         run: |
